@@ -58,3 +58,10 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginEditor)
 };
+
+// In PluginEditor.h (under private members)
+juce::Colour getDynamicColor(float intensity)
+{
+    // Shifts smoothly from dark red to vibrant purple, blue, or neon cyan as intensity grows
+    return juce::Colour::fromHSV(intensity * 0.7f, 0.85f, 0.95f, 1.0f);
+}
