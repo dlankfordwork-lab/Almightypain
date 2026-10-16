@@ -1,6 +1,6 @@
 
-#include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "PluginProcessor.h"
 
 AlmightyPainAudioProcessorEditor::AlmightyPainAudioProcessorEditor (AlmightyPainAudioProcessor& p)
     : AudioProcessorEditor (&p), processorRef (p)
@@ -31,7 +31,7 @@ void AlmightyPainAudioProcessorEditor::paint (juce::Graphics& g)
     g.setGradientFill(bgGradient);
     g.fillAll();
 
-    // Draw Title Text safely using integer bounds to prevent compile errors
+    // Draw Title Text safely using integer bounds
     g.setColour(dynamicAccent);
     g.setFont(juce::FontOptions(28.0f, juce::Font::bold));
     
