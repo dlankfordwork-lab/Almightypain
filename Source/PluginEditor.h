@@ -1,67 +1,21 @@
 #pragma once
-
 #include <juce_audio_processors/juce_audio_processors.h>
-#include <juce_gui_basics/juce_gui_basics.h>
-
-#include <memory>
-#include <vector>
-
 #include "PluginProcessor.h"
 
-//==============================================================================
-class PainLookAndFeel : public juce::LookAndFeel_V4
+class AlmightyPainAudioProcessorEditor : public juce::AudioProcessorEditor
 {
 public:
-    PainLookAndFeel();
-
-    void drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height,
-                           float sliderPosProportional, float rotaryStartAngle,
-                           float rotaryEndAngle, juce::Slider& slider) override;
-
-    static juce::Colour accent() { return juce::Colour (0xffe0182d); }
-};
-
-//==============================================================================
-class PluginEditor : public juce::AudioProcessorEditor
-{
-public:
-    explicit PluginEditor (PluginProcessor&);
-    ~PluginEditor() override;
+    AlmightyPainAudioProcessorEditor (AlmightyPainAudioProcessor&);
+    ~AlmightyPainAudioProcessorEditor() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
-    struct Knob
-    {
-        juce::Slider slider;
-        juce::Label label;
-        std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> attachment;
-    };
+    AlmightyPainAudioProcessor& processorRef;
+    
+    // Helper method for shifting colors based on the macro knob intensity
+    juce::Colour getDynamicColor(float intensity);
 
-    struct Row
-    {
-        juce::String title;
-        std::vector<Knob*> knobs;
-        juce::Rectangle<int> bounds;
-    };
-
-    Knob* addKnob (const juce::String& paramID, const juce::String& labelText);
-
-    PluginProcessor& audioProcessor;
-
-    PainLookAndFeel lookAndFeel;   // declared before the knobs so it outlives them
-    std::vector<std::unique_ptr<Knob>> knobs;
-    std::vector<Row> rows;
-    Knob* painKnob = nullptr;
-    juce::Rectangle<int> painPanel;
-
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AlmightyPainAudioProcessorEditor)
 };
-
-// In PluginEditor.h (under private members)
-juce::Colour getDynamicColor(float intensity)
-{
-    // Shifts smoothly from dark red to vibrant purple, blue, or neon cyan as intensity grows
-    return juce::Colour::fromHSV(intensity * 0.7f, 0.85f, 0.95f, 1.0f);
-}
