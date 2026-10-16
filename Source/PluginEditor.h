@@ -1,6 +1,8 @@
 #pragma once
 #include <juce_audio_processors/juce_audio_processors.h>
-#include "PluginProcessor.h"
+
+// Forward declare the processor to prevent circular inclusion errors
+class AlmightyPainAudioProcessor;
 
 class AlmightyPainAudioProcessorEditor : public juce::AudioProcessorEditor
 {
