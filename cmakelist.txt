@@ -1,0 +1,50 @@
+cmake_minimum_required(VERSION 3.16)
+project(AlmightyPain VERSION 1.0.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Update these if your JUCE checkout is elsewhere
+# Typical Cursor/CMake flow assumes JUCE modules are available.
+# If you already have a JUCE CMake preset, you may not need this.
+if(NOT DEFINED JUCE_DIR)
+    message(FATAL_ERROR "Please define JUCE_DIR to your JUCE root folder (e.g., -DJUCE_DIR=C:/path/to/JUCE).")
+endif()
+
+set(JUCE_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(JUCE_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(JUCE_BUILD_BENCHMARKS OFF CACHE BOOL "" FORCE)
+
+add_subdirectory("${JUCE_DIR}" juce)
+
+juce_add_plugin(AlmightyPain
+    COMPANY_NAME "Almighty Audio"
+    PLUGIN_MANUFACTURER_CODE "AApa"
+    PLUGIN_CODE "ApnP"
+    FORMATS VST3
+    PRODUCT_NAME "ALMIGHTY PAIN"
+    IS_SYNTH FALSE
+    NEEDS_MIDI_INPUT FALSE
+    NEEDS_MIDI_OUTPUT FALSE
+    IS_MIDI_EFFECT FALSE
+    EDITOR_WANTS_KEYBOARD_FOCUS TRUE
+    VST3_CATEGORY "Fx"
+    COPY_PLUGIN_AFTER_BUILD TRUE
+    PLUGIN_IS_BRIDGE FALSE
+    MANUFACTURER "Almighty Audio"
+    BUNDLE_ID "com.almightyaudio.almightypain"
+)
+
+target_compile_definitions(AlmightyPain PRIVATE
+    JUCE_WEB_BROWSER=0
+    JUCE_WEB_BROWSER=0
+    JUCE_DISABLE_JUCE_VERSION_PRINTING=1
+)
+
+target_sources(AlmightyPain PRIVATE
+    Source/PluginProcessor.cpp
+    Source/PluginEditor.cpp
+)
+
+target_link_libraries(AlmightyPain PRIVATE juce::juce_audio_processors juce::juce_audio_utils juce::juce_gui_extra juce::juce_opengl)
+Build this windows juice 8 plugin for me
