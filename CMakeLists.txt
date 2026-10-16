@@ -47,7 +47,7 @@ target_compile_definitions(AlmightyPain
         JUCE_USE_CURL=0
         JUCE_VST3_CAN_REPLACE_VST2=0)
 
-target_link_libraries(AlmightyPain
+target_link_libraries(AlmightyPain)
     PRIVATE
         juce::juce_audio_utils
         juce::juce_dsp
