@@ -11,11 +11,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-      with:
-        submodules: recursive
+
+    - name: Get JUCE
+      run: git clone --depth 1 --branch 8.0.0 https://github.com/juce-framework/JUCE.git C:/JUCE
 
     - name: Configure CMake
-      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+      run: cmake -B build -DJUCE_DIR=C:/JUCE -DCMAKE_BUILD_TYPE=Release
 
     - name: Build Plugin
       run: cmake --build build --config Release
