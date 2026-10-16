@@ -2,9 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 
 project(AlmightyPain VERSION 1.0.0)
 
-# Points to where GitHub Actions downloaded JUCE on the cloud machine
-list(APPEND CMAKE_PREFIX_PATH "C:/JUCE")
-find_package(JUCE REQUIRED)
+# Directly include JUCE from the path set up by GitHub Actions
+add_subdirectory(C:/JUCE JUCE)
 
 juce_add_plugin(AlmightyPain
     COMPANY_NAME "Almighty Audio"
