@@ -362,6 +362,47 @@ void PluginProcessor::setStateInformation (const void* data, int sizeInBytes)
 }
 
 //==============================================================================
+void AlmightyPainAudioProcessorEditor::paint(juce::Graphics& g)
+{
+    // Get current macro value (0.0 to 1.0)
+    float macroValue = processorRef.apvts.getRawParameterValue("PAIN")->load();
+    
+    // Get shifting color based on the knob
+    juce::Colour dynamicAccent = getDynamicColor(macroValue);
+
+    // Fill background with a subtle dark gradient tinted by the dynamic color
+    juce::ColourGradient bgGradient(juce::Colours::black, 0, 0, 
+                                   dynamicAccent.darker(0.9f), 0, (float)getHeight(), false);
+    g.setGradientFill(bgGradient);
+    g.fillAll();
+
+    // Draw Title Text with changing color
+    g.setColour(dynamicAccent);
+    g.setFont(juce::FontOptions(28.0f, juce::Font::bold));
+    g.drawText("ALMIGHTY PAIN", getLocalBounds().removeFromTop(50), juce::Justification::centred, true);
+    
+    // Pass dynamicAccent down to custom LookAndFeel for knobs!
+void AlmightyPainAudioProcessorEditor::paint(juce::Graphics& g)
+{
+    // Get current macro value (0.0 to 1.0)
+    float macroValue = processorRef.apvts.getRawParameterValue("PAIN")->load();
+    
+    // Get shifting color based on the knob
+    juce::Colour dynamicAccent = getDynamicColor(macroValue);
+
+    // Fill background with a subtle dark gradient tinted by the dynamic color
+    juce::ColourGradient bgGradient(juce::Colours::black, 0, 0, 
+                                   dynamicAccent.darker(0.9f), 0, (float)getHeight(), false);
+    g.setGradientFill(bgGradient);
+    g.fillAll();
+
+    // Draw Title Text with changing color
+    g.setColour(dynamicAccent);
+    g.setFont(juce::FontOptions(28.0f, juce::Font::bold));
+    g.drawText("ALMIGHTY PAIN", getLocalBounds().removeFromTop(50), juce::Justification::centred, true);
+    
+    // Pass dynamicAccent down to custom LookAndFeel for knobs!
+}
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new PluginProcessor();
